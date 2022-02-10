@@ -20,8 +20,8 @@ class ClusterManager<T extends ClusterItem> {
   ClusterManager(this._items, this.updateMarkers,
       {Future<Marker> Function(Cluster<T>)? markerBuilder,
       this.levels = const [1, 4.25, 6.75, 8.25, 11.5, 14.5, 16.0, 16.5, 20.0],
-      this.extraPercent = 0.5,
-      this.maxItemsForMaxDistAlgo = 200,
+      this.extraPercent = 1,
+      this.maxItemsForMaxDistAlgo = 350,
       this.clusterAlgorithm = ClusterAlgorithm.GEOHASH,
       this.maxDistParams,
       this.stopClusteringZoom})
