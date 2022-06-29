@@ -20,7 +20,8 @@ class ClusterManager<T extends ClusterItem> {
   ClusterManager(this._items, this.updateMarkers,
       {Future<Marker> Function(Cluster<T>)? markerBuilder,
       this.levels = const [1, 4.25, 6.75, 8.25, 11.5, 14.5, 16.0, 16.5, 20.0],
-      this.extraPercent = 1,
+      this.extraPercent = 0.8,
+      this.extraZoom = 0.2,
       this.maxItemsForMaxDistAlgo = 350,
       this.clusterAlgorithm = ClusterAlgorithm.GEOHASH,
       this.maxDistParams,
@@ -42,6 +43,9 @@ class ClusterManager<T extends ClusterItem> {
 
   /// Extra percent of markers to be loaded (ex : 0.2 for 20%)
   final double extraPercent;
+
+  /// Extra zoom of map for GEOHASH algorithm (ex : 0.2 for 20%)
+  final double extraZoom;
 
   // Clusteringalgorithm
   final ClusterAlgorithm clusterAlgorithm;
@@ -166,7 +170,7 @@ class ClusterManager<T extends ClusterItem> {
 
   int _findLevel(List<double> levels) {
     for (int i = levels.length - 1; i >= 0; i--) {
-      if (levels[i] <= _zoom) {
+      if (levels[i] <= _zoom + (_zoom * extraZoom)) {
         return i + 1;
       }
     }
